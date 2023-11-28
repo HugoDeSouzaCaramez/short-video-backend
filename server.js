@@ -17,18 +17,6 @@ mongoose.connect(connection_url, {});
 //API Endpoints
 app.get('/', (req, res) => res.status(200).send('Hello TheWebDev'));
 
-/**
- * app.post('/dating/cards', (req, res) => {
-  const data = req.body;
-  Cards.create(data)
-    .then((result) => {
-      res.status(201).send(data);
-    })
-    .catch((err) => {
-      res.status(500).send(err);
-    });
-});
- */
 app.post('/v2/posts', async (req, res) => {
   try {
     const data = req.body;
@@ -38,14 +26,14 @@ app.post('/v2/posts', async (req, res) => {
     res.status(500).send(err);
   }
 });
-app.get('/v2/posts', (req, res) => {
-  Videos.find((err, data) => {
-    if (err) {
-      res.status(500).send(err);
-    } else {
-      res.status(200).send(data);
-    }
-  });
+app.get('/v2/posts', async (req, res) => {
+  try {
+    const videos = await Videos.find();
+    res.status(200).send(videos);
+  } catch (err) {
+    res.status(500).send(err);
+  }
 });
+
 //Listener
 app.listen(port, () => console.log(`Listening on localhost: ${port}`));
