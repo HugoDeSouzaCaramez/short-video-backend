@@ -17,10 +17,22 @@ mongoose.connect(connection_url, {});
 //API Endpoints
 app.get('/', (req, res) => res.status(200).send('Hello TheWebDev'));
 
+/**
+ * app.post('/dating/cards', (req, res) => {
+  const data = req.body;
+  Cards.create(data)
+    .then((result) => {
+      res.status(201).send(data);
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    });
+});
+ */
 app.post('/v2/posts', async (req, res) => {
   try {
-    const dbVideos = req.body;
-    Videos.create(dbVideos);
+    const data = req.body;
+    Videos.create(data);
     res.status(201).send(data);
   } catch (err) {
     res.status(500).send(err);
